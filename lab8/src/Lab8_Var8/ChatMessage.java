@@ -21,7 +21,6 @@ public class ChatMessage {
     public void setMessage(String message) {
         this.message = message;
     }
-
     public ChatUser getAuthor() {
         return author;
     }

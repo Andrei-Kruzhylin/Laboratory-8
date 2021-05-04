@@ -77,7 +77,7 @@ public class LoginServlet extends ChatServlet {
                     "</font></p>");
         }
 // Вывести форму
-        pw.println("<form action='/lab8_war_exploded/' method='post'>Enter Name: <input type='text' name='name' value=''><input type='submit' value='Enter the chat'>");
+        pw.println("<form action='/lab8_war_exploded/' method='post'>Введите имя пользователя: <input type='text' name='name' value=''><input type='submit' value='Войти в чат'>");
         pw.println("</form></body></html>");
 // Сбросить сообщение об ошибке в сессии
         request.getSession().setAttribute("error", null);
@@ -95,7 +95,7 @@ public class LoginServlet extends ChatServlet {
         String errorMessage = null;
         if (name==null || "".equals(name)) {
 // Пустое имя недопустимо - сообщить об ошибке
-            errorMessage = "Name cannot be empty!!";
+            errorMessage = "Имя пользователя не может быть пустым!";
         } else {
 // Если ия не пустое, то попытаться обработать запрос
             errorMessage = processLogonAttempt(name, request, response);
@@ -151,7 +151,7 @@ public class LoginServlet extends ChatServlet {
         } else {
 // Сохранѐнное в сессии имя уже закреплено за кем-то другим.
 // Извиниться, отказать и попросить ввести другое имя
-            return "Sorry, but name <strong>" + name + "</strong> is already taken by someone. Please choose another name!";
+            return "Извините, но имя <strong>" + name + "</strong> уже кем-то занято. Пожалуйста, выберите другое имя!";
         }
     }
 }

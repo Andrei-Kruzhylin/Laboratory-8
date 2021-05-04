@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
+
 public class MessageListServlet extends ChatServlet {
     private static final long serialVersionUID = 1L;
+    private String prevAuthor = "";
+    private String spaces = "";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
@@ -24,9 +27,24 @@ public class MessageListServlet extends ChatServlet {
 // В обратном порядке записать в поток HTML-разметку для каждого сообщения
         for (int i=messages.size()-1; i>=0; i--) {
             ChatMessage aMessage = messages.get(i);
-            pw.println("<div><strong>" + aMessage.getAuthor().getName()
-                    + "</strong>: " + aMessage.getMessage() + "</div>");
+            if (prevAuthor != aMessage.getAuthor().getName()){prevAuthor="";}
+            if (prevAuthor == "") {
+                pw.println("<div><strong>" + "<pre>" + aMessage.getAuthor().getName()
+                        + "</strong>: " + aMessage.getMessage() + "</pre>" + "</div>");
+                prevAuthor = aMessage.getAuthor().getName();
+            }else {
+                for (int j = 0; j <= prevAuthor.length() + 1; j++) {
+                    spaces = spaces + " ";
+                }
+                pw.println("<div><strong>"
+                        + "</strong> " + "<pre>" + spaces + aMessage.getMessage() + "</pre>" + "</div>");
+                if (prevAuthor != aMessage.getAuthor().getName()) {
+                    prevAuthor = "";
+                }
+                spaces = "";
+            }
         }
+        prevAuthor = "";
         pw.println("</body></html>");
     }
 }
